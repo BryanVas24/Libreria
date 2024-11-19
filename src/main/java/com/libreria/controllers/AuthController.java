@@ -3,6 +3,7 @@ package com.libreria.controllers;
 import com.libreria.model.User;
 import com.libreria.service.UserService;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,15 @@ public class AuthController {
             return ResponseEntity.status(401).body(e.getMessage());
         }
     }
+    @GetMapping("/users")
+    public ResponseEntity<?> getAllUsers() {
+        try {
+            List<User> users = userService.getAllUsers();
+            return ResponseEntity.ok(users);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Error al obtener los usuarios: " + e.getMessage());
+        }
+    }
      // Eliminar usuario (Solo admins)
      @DeleteMapping("/user/delete")
         public ResponseEntity<?> deleteUser(@RequestBody Map<String, Object> request) {
@@ -49,6 +59,7 @@ public class AuthController {
             return ResponseEntity.status(403).body(e.getMessage());
         }
     }
+    
  
      // Editar usuario
      @PutMapping("/user/{id}")

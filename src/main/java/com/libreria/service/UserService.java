@@ -7,6 +7,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class UserService {
@@ -28,7 +29,9 @@ public class UserService {
 
         return userRepository.save(user);
     }
-
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
     public User login(String email, String password) throws Exception {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new Exception("Usuario no encontrado."));
