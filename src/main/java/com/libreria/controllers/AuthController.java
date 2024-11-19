@@ -48,17 +48,17 @@ public class AuthController {
         }
     }
      // Eliminar usuario (Solo admins)
-     @DeleteMapping("/user/delete")
-        public ResponseEntity<?> deleteUser(@RequestBody Map<String, Object> request) {
-        try {
-         Long id = Long.valueOf(request.get("id").toString());
-         String adminEmail = request.get("adminEmail").toString();
-         userService.deleteUser(id, adminEmail);
-         return ResponseEntity.ok("Usuario eliminado exitosamente.");
-        } catch (Exception e) {
-            return ResponseEntity.status(403).body(e.getMessage());
-        }
+@PostMapping("/user/delete")
+public ResponseEntity<?> deleteUser(@RequestBody Map<String, Object> request) {
+    try {
+        Long id = Long.valueOf(request.get("id").toString());
+        String adminEmail = request.get("adminEmail").toString();
+        userService.deleteUser(id, adminEmail);
+        return ResponseEntity.ok("Usuario eliminado exitosamente.");
+    } catch (Exception e) {
+        return ResponseEntity.status(403).body(e.getMessage());
     }
+}
     
  
      // Editar usuario
